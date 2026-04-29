@@ -59,7 +59,7 @@ $.getJSON("data/StormSurgeData_DPWH_260427_cleandata.geojson", function (data) {
                 "<b>Source:</b> " + feature.properties["DEO"]
             );
         }
-    });
+    }).addTo(map);
     
     // Add the layer to the layer group (this makes it toggleable)
     ssdmgLayerGroup.addLayer(ssdmgLayer);
