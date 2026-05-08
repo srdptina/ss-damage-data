@@ -37,6 +37,8 @@ var overlayMaps = {
 
 var maplayers = L.control.layers(baseLayers, overlayMaps).addTo(map);
 
+var markers = L.markerClusterGroup();
+
 // Load the storm surge data and add it to the layer group
 $.getJSON("data/StormSurgeData_DPWH_260427_cleandata.geojson", function (data) {
     var ssdmgLayer = L.geoJSON(data, {
@@ -59,8 +61,11 @@ $.getJSON("data/StormSurgeData_DPWH_260427_cleandata.geojson", function (data) {
                 "<b>Source:</b> " + feature.properties["DEO"]
             );
         }
-    }).addTo(map);
+    });
     
-    // Add the layer to the layer group (this makes it toggleable)
-    ssdmgLayerGroup.addLayer(ssdmgLayer);
+    // Add the GeoJSON layer to the cluster group
+    markers.addLayer(ssdmgLayer);
+    ssdmgLayerGroup.addLayer(markers);
+    markers.addTo(map);
 });
+ssdmgLayerGroup.addTo(map);
